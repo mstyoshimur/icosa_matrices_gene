@@ -1,4 +1,4 @@
-# Icosahedral matices generator for protein crystallographor
+# Icosahedral matices generator for protein crystallographer
 
 ## preparation
 
