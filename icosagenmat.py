@@ -6,13 +6,16 @@ from string import atof
 
 
 def howtouse():
+      print("how to use: \n")
       print("./icosagenmat.py \n")
       print("./icosagenmat.py 90 0 0 \n")
       print("./icosagenmat.py 20 30 10 115.2 123.1 134.1\n")
       print("./icosagenmat.py 20 30 10 115.2 123.1 134.1 \"FIXR ON FIXB ON\" \n")
-      print("matrices numbering is the same as viperdb.scripps.edu one \n")
-
-
+      print("Matrices numbering is the same as viperdb.scripps.edu one \n")
+      print("Units for input angles are degree, coordinates for center are in orthogonal as x y z \n")
+      print("Outputs are phaser_sol_eul refmac_ncscon_eul  refmac_ncscon_mat and biomat\n")
+      print("After 6 numbers of angles and coordinates, the characters with \" \" can be inputted for phaser input file.\n")
+      exit
 
 Rad=pi/180.
 Deg=1./Rad
@@ -206,7 +209,7 @@ if __name__ == '__main__':
          xcen,ycen,zcen=atof(argv[4]),atof(argv[5]),atof(argv[6])
       except:
          howtouse()
-      if argc > 6:
+      if argc > 7:
          phaser_str=argv[7]
               
     
@@ -227,6 +230,7 @@ if __name__ == '__main__':
   f_refmac_m=open("refmac_ncscon_mat",'w')
   f_refmac_e=open("refmac_ncscon_eul",'w')
   f_phaser=open("phaser_sol_eul",'w')  
+  f_biomat=open("biomat",'w')  
   f_phaser.write("SOLU SET \n")
 #  
   for ico in range(1,61):
@@ -266,6 +270,13 @@ if __name__ == '__main__':
 
          f_refmac_m.write(" %15.3f  %15.3f  %15.3f \n"%(ncenx,nceny,ncenz))
 
+
+         f_biomat.write("REMARK 350   BIOMT1  %2d%10.6f%10.6f%10.6f%15.5f\n"%(ico,rot3[1],rot3[2],rot3[3],ncenx))
+         f_biomat.write("REMARK 350   BIOMT2  %2d%10.6f%10.6f%10.6f%15.5f\n"%(ico,rot3[4],rot3[5],rot3[6],nceny))
+         f_biomat.write("REMARK 350   BIOMT3  %2d%10.6f%10.6f%10.6f%15.5f\n"%(ico,rot3[7],rot3[8],rot3[9],ncenz))
+
+
+
 # matrix to Euler
 
          if -0.0001 < rot3[9] < 0.0001: #rot33==0 beta=90.00
@@ -293,5 +304,5 @@ if __name__ == '__main__':
   f_refmac_m.close()
   f_refmac_e.close()
   f_phaser.close()
+  f_biomat.close()
 
-           
