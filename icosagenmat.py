@@ -2,7 +2,7 @@
 import os
 from sys import *
 from math import *
-from string import atof
+
 
 
 def howtouse():
@@ -201,12 +201,12 @@ if __name__ == '__main__':
   argc=len(argv)
   if argc > 1 :
     try:
-      alpha,beta,gamma=atof(argv[1])*Rad,atof(argv[2])*Rad,atof(argv[3])*Rad
+      alpha,beta,gamma=float(argv[1])*Rad,float(argv[2])*Rad,float(argv[3])*Rad
     except:
       howtouse()
     if argc > 4 :
       try:
-         xcen,ycen,zcen=atof(argv[4]),atof(argv[5]),atof(argv[6])
+         xcen,ycen,zcen=float(argv[4]),float(argv[5]),float(argv[6])
       except:
          howtouse()
       if argc > 7:
