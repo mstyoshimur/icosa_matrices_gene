@@ -21,6 +21,7 @@ chmod 755 ./icosagenmat.py
 
 ## explanation
 - Matrices numbering is the same as viperdb.scripps.edu one 
+- Original icosahedral covention is 2(Z)-3-5-(X)2.
 - inputs are alpha beta gamma x_center y_center z_center in Euler angles and in orthogonal coordinate.
 - Units for input angle angles are degree, coordinates for center are in orthogonal as x y z 
 - Outputs are phaser_sol_eul refmac_ncscon_eul  refmac_ncscon_mat and biomat
