@@ -12,8 +12,8 @@ def howtouse():
       print("./icosagenmat.py 20 30 10 115.2 123.1 134.1\n")
       print("./icosagenmat.py 20 30 10 115.2 123.1 134.1 \"FIXR ON FIXB ON\" \n")
       print("Matrices numbering is the same as viperdb.scripps.edu one \n")
-      print("Units for input angles are degree, coordinates for center are in orthogonal as x y z \n")
-      print("Outputs are phaser_sol_eul refmac_ncscon_eul  refmac_ncscon_mat and biomat\n")
+      print("Units for input angles are degree in Euler, coordinates for center are in orthogonal as x y z \n")
+      print("Outputs are phaser_sol_eul refmac_ncscon_eul refmac_ncscon_mat DM_fix DM_refi and biomat\n")
       print("After 6 numbers of angles and coordinates, the characters with \" \" can be inputted for phaser input file.\n")
       exit
 
@@ -230,8 +230,11 @@ if __name__ == '__main__':
   f_refmac_m=open("refmac_ncscon_mat",'w')
   f_refmac_e=open("refmac_ncscon_eul",'w')
   f_phaser=open("phaser_sol_eul",'w')  
+  f_DM_fix=open("DM_fix",'w')  
+  f_DM_refi=open("DM_refi",'w')  
   f_biomat=open("biomat",'w')  
   f_phaser.write("SOLU SET \n")
+
 #  
   for ico in range(1,61):
 
@@ -258,6 +261,7 @@ if __name__ == '__main__':
          ncenx=xcen-(xcen*rot3[1]+ycen*rot3[2]+zcen*rot3[3])
          nceny=ycen-(xcen*rot3[4]+ycen*rot3[5]+zcen*rot3[6])
          ncenz=zcen-(xcen*rot3[7]+ycen*rot3[8]+zcen*rot3[9])
+
 
          for ii in range(9):
            if -0.0000001<rot3[ii]<0.000000001:
@@ -300,9 +304,17 @@ if __name__ == '__main__':
 
          f_refmac_e.write("ncscons euler %13.4f %13.4f %13.4f %15.3f %15.3f %15.3f \n"%(nalpha,nbeta,ngamma,ncenx,nceny,ncenz))         
          f_phaser.write("SOLU 6DIM ENSE mol1 EULER %12.3f %12.3f %12.3f   ORTH %12.3f %12.3f %12.3f %s\n"%(nalpha,nbeta,ngamma,ncenx,nceny,ncenz,phaser_str))         
+         f_DM_fix.write("average \n")
+         f_DM_refi.write("average REFI\n")
+         dmline="rota EULER %12.3f %12.3f %12.3f \ntran %12.3f %12.3f %12.3f \n"%(nalpha,nbeta,ngamma,ncenx,nceny,ncenz)
+         f_DM_fix.write(dmline)
+         f_DM_refi.write(dmline)
+       
  
   f_refmac_m.close()
   f_refmac_e.close()
   f_phaser.close()
+  f_DM_fix.close()
+  f_DM_refi.close()
   f_biomat.close()
 
